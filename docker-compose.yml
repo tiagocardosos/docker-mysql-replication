@@ -1,0 +1,44 @@
+version: '2.2'
+
+services:
+  mysql-master:
+    build:
+      context: ./
+      dockerfile: mysql.dockerfile
+    hostname: 'master'
+    container_name: 'mysql-master'
+    ports:
+      - '3306'
+    volumes:
+      - $PWD/master/conf.d:/etc/mysql/mysql.conf.d/
+      - $PWD/master/data:/var/lib/mysql
+      - $PWD/master/log:/var/log/mysql
+      - $PWD/master/backup:/backup
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=minha_base
+    networks:
+      - mynet  
+  mysql-slave:
+    build:
+      context: ./
+      dockerfile: mysql.dockerfile
+    hostname: 'slave'
+    container_name: 'mysql-slave'
+    ports:
+      - '3306'
+    volumes:
+      - $PWD/slave/conf.d:/etc/mysql/mysql.conf.d/
+      - $PWD/slave/data:/var/lib/mysql
+      - $PWD/slave/log:/var/log/mysql
+      - $PWD/slave/backup:/backup
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=minha_base
+    depends_on:
+      - mysql-master
+    networks:
+      - mynet  
+
+networks:
+  mynet:      
