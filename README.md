@@ -57,7 +57,7 @@ Dentro do shell:
 ## Observações  
 - Para ativar a réplica é necessário ter em mente a Engine do banco de réplica. Parar InnoDB não é necessário efetuar o lock das tabelas ao gerar o dump, basta usar a opção --single-transaction. Já para Engines não transacionais como MyISAM é necessário que seja efetuado o lock para garantir a consistência dos dados, fazendo com que algumas etapas sejam alteradas:
 
-4. (mysql-master) Antes de executar o mysqldump é necessário abrir outro shell e acessar o prompt do mysql:
+4. (4-mysql-master) Antes de executar o mysqldump é necessário abrir outro shell e acessar o prompt do mysql:
 
       4.1. mysql > USE minha_base;
       
@@ -71,5 +71,6 @@ Dentro do shell:
       4.5 Dentro do segundo shell: mysql > UNLOCK TABLES; 
       > O trabalho dentro desse shell foi concluído. Caso tenha anotado os valores do File e Position obtidos no comando 4.3, o mesmo pode ser fechado.
       
-7. (mysql-slave) CHANGE MASTER TO MASTER_HOST='XXX.XXX.XXX.XXX', MASTER_USER='slave_user',   MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-bin.00000X', MASTER_LOG_POS=XXXX;
+
+7. (7-mysql-slave) CHANGE MASTER TO MASTER_HOST='XXX.XXX.XXX.XXX', MASTER_USER='slave_user',   MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-bin.00000X', MASTER_LOG_POS=XXXX;
    > Substituir MASTER_HOST, MASTER_LOG_FILE e MASTER_LOG_POS pelos valores correspondentes
