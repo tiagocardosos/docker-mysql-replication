@@ -59,17 +59,17 @@ Dentro do shell:
 
 4. (mysql-master) Antes de executar o mysqldump é necessário abrir outro shell e acessar o prompt do mysql:
 
-4.1. mysql > USE minha_base;
-
-4.2. mysql > FLUSH TABLES WITH READ LOCK;
-
-4.3. mysql > SHOW MASTER STATUS;  
-   > Anotar esse valor para usá-lo na configuração do slave.
-
-4.4 Dentro do primeiro shell, **com o outro ainda aberto**: /# mysqldump -u root -p minha_base > /backup/backup.sql
-
-4.5 Dentro do segundo shell: mysql > UNLOCK TABLES; 
-   > O trabalho dentro desse shell foi concluído. Caso tenha anotado os valores do File e Position obtidos no comando 4.3, o mesmo pode ser fechado.
-
+      4.1. mysql > USE minha_base;
+      
+      4.2. mysql > FLUSH TABLES WITH READ LOCK;
+      
+      4.3. mysql > SHOW MASTER STATUS;  
+      > Anotar esse valor para usá-lo na configuração do slave.
+      
+      4.4 Dentro do primeiro shell, **com o outro ainda aberto**: /# mysqldump -u root -p minha_base > /backup/backup.sql
+      
+      4.5 Dentro do segundo shell: mysql > UNLOCK TABLES; 
+      > O trabalho dentro desse shell foi concluído. Caso tenha anotado os valores do File e Position obtidos no comando 4.3, o mesmo pode ser fechado.
+      
 7. (mysql-slave) CHANGE MASTER TO MASTER_HOST='XXX.XXX.XXX.XXX', MASTER_USER='slave_user',   MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-bin.00000X', MASTER_LOG_POS=XXXX;
    > Substituir MASTER_HOST, MASTER_LOG_FILE e MASTER_LOG_POS pelos valores correspondentes
