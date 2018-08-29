@@ -1,6 +1,7 @@
 [mysqld]
  server-id = 101
  log_bin = /var/log/mysql/mysql-bin.log
+ expire_logs_days = 7
  binlog_do_db = minha_base
  bind-address = 0.0.0.0 # make sure to bind it to all IPs, else mysql listens on 127.0.0.1
  character_set_server = utf8

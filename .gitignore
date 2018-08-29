@@ -1,0 +1,5 @@
+.idea/
+master/data
+slave/data
+master/log
+slave/log
